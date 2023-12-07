@@ -164,24 +164,6 @@ def train_fn(paths, data, preprocess, model, training):
         (len(x) / training["params"].batch_size) * training["params"].num_epochs
     )
     lr = training["learning_rate"](total_steps=total_steps)
-
-    # warmup_epoch_prct = 0.10
-    # warmup_steps = int(total_steps * warmup_epoch_prct)
-    # warmup_target = 1e-2
-
-    # initial_learning_rate = 1e-6
-    # decay_steps = (total_steps - warmup_steps) * 0.80
-
-    # alpha = 0.01
-
-    # lr = keras.optimizers.schedules.CosineDecay(
-    #     initial_learning_rate=initial_learning_rate,
-    #     decay_steps=decay_steps,
-    #     alpha=alpha,
-    #     warmup_steps=warmup_steps,
-    #     warmup_target=warmup_target,
-    # )
-    # print(lr)
     loss = training["loss"]
     optimizer = training["optimizer"](learning_rate=lr)
 
