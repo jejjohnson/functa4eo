@@ -5,54 +5,38 @@ os.environ["KERAS_BACKEND"] = "torch"
 from typing import Optional
 from hydra_zen import instantiate
 from loguru import logger
+import hydra
 import typer
 from functa4eo._src.transforms import MinMaxDF, StandardScalerDF
 from sklearn.utils import shuffle
 import keras_core as keras
 from functa4eo._src.losses import psnr
 from functa4eo._src.callbacks import DVCLiveCallback
+import yaml
+from hydra_zen import MISSING, make_config
+from hydra.core.config_store import ConfigStore
 
-VARIABLE_DS_NAME = {"ssh": "zos", "sst": "thetao", "u": "uo", "v": "vo"}
+from omegaconf import DictConfig
 
-VARIABLE_FILE_NAME = {
-    "ssh": "ssh",
-    "sst": "temperature",
-    "u": "currents",
-    "v": "currents",
-}
+# Config = make_config(
+#     defaults=[
+#         "_self_",
+#         {"data": "temperature"},
+#     ],
+#     data=MISSING,
+#     # EXPERIMENT CONSTANTS
+#     data_dir="/home/juanjohn/data/ocean/reanalysis",
+# )
 
+# cs = ConfigStore.instance()
 
-def validate_units(ds):
-    var_names = list(ds.data_vars.keys())
-
-    if "zos" in var_names:
-        ds["zos"].attrs["units"] = "meters"
-    if "thetao" in var_names:
-        ds["thetao"].attrs["units"] = "degC"
-    if "bottomT" in var_names:
-        ds["bottomT"].attrs["units"] = "degC"
-    if "uo" in var_names:
-        ds["uo"].attrs["units"] = "meter / second"
-    if "vo" in var_names:
-        ds["vo"].attrs["units"] = "meter / second"
-    return ds
+# cs.store(name="config", node=Config)
 
 
-def main(
-    stage: str = "train",
-    variable: str = "ssh",
-    res: int = 1,
-    validation_split: float = 0.9,
-    batch_size: int = 10_000,
-    epochs: int = 100,
-    t0: str = "2010-01-01",
-    t1: str = "2010-02-01",
-    model: Optional[str] = None,
-    learning_rate: float = 1e-4,
-):
-    logger.info(f"TRAINING for {variable}")
-    variable_name = VARIABLE_DS_NAME[variable]
-    variable_file_name = VARIABLE_FILE_NAME[variable]
+def train(config: DictConfig):
+    logger.info(f"Starting")
+    # variable_name = VARIABLE_DS_NAME[variable]
+    # variable_file_name = VARIABLE_FILE_NAME[variable]
 
     # logger.info("initializing")
     # data = instantiate(config.MED_CURRENTS, variable=variable_file_name)
@@ -136,5 +120,13 @@ def main(
     # predictions = model.predict(x=[t, x], batch_size=100_000)
 
 
+@hydra.main(
+    config_path="/home/juanjohn/projects/functa4eo/_src/config.py", config_name="config"
+)
+def main(cfg: DictConfig):
+    print(cfg)
+    return train(cfg)
+
+
 if __name__ == "__main__":
-    typer.run(main)
+    main()
