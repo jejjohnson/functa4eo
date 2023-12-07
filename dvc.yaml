@@ -1,0 +1,5 @@
+artifacts:
+  temperature-dataset:
+   path: /home/juanjohn/data/ocean/reanalysis/MED_GLORYS_SSH_DAILY.nc
+   type: dataset
+   desc: Temperature Dataset
