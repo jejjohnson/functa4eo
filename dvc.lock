@@ -1,12 +1,9 @@
 schema: '2.0'
 stages:
   train:
-    cmd: python functa4eo/_src/train.py
+    cmd: python functa4eo/_src/config.py
     deps:
-    - path: functa4eo/_src/train.py
+    - path: functa4eo/_src/config.py
       hash: md5
-      md5: bcc670488b83e1447d97e53964dad251
-      size: 4104
-    params:
-      params.yaml:
-        dataset.temperature.name: temperature
+      md5: 1b736a8b0ffa006ddbf52a3d6d3827cd
+      size: 6736

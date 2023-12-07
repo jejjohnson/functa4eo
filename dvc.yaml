@@ -1,24 +1,13 @@
-artifacts:
-  temperature-dataset:
-    path: /home/juanjohn/data/ocean/reanalysis/MED_GLORYS_SSH_DAILY.nc
-    type: dataset
-    desc: Temperature Dataset
-
+# Type dvc-help in this file and hit enter to get more information on how the extension can help to setup pipelines
 stages:
   train:
-    cmd: python functa4eo/_src/train.py
+    cmd: python functa4eo/_src/config.py
     deps:
-    - functa4eo/_src/train.py
-    params:
-    - dataset.temperature.name
-metrics:
-- dvclive/metrics.json
-plots:
-- dvclive/plots/metrics:
-    x: step
-    - Loss:
-          template: simple
-          x: step
-          y:
-              dvclive/plots/metrics/loss.tsv: loss
+      - functa4eo/_src/config.py
 
+plots:
+  - step vs loss:
+      template: simple
+      x: step
+      y:
+        dvclive/plots/metrics/loss.tsv: loss
