@@ -3,11 +3,17 @@ stages:
   train:
     cmd: python functa4eo/_src/config.py
     deps:
-      - functa4eo/_src/config.py
+    - functa4eo/_src/config.py
 
 plots:
-  - step vs loss:
-      template: simple
-      x: step
-      y:
-        dvclive/plots/metrics/loss.tsv: loss
+- step vs loss:
+    template: simple
+    x: step
+    y:
+      dvclive/plots/metrics/loss.tsv: loss
+- dvclive/plots/metrics:
+    x: step
+    y:
+      dvclive/plots/metrics/loss.tsv: loss
+metrics:
+- dvclive/metrics.json
