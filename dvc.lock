@@ -1,9 +1,0 @@
-schema: '2.0'
-stages:
-  train:
-    cmd: python functa4eo/_src/config.py
-    deps:
-    - path: functa4eo/_src/config.py
-      hash: md5
-      md5: 1b736a8b0ffa006ddbf52a3d6d3827cd
-      size: 6736

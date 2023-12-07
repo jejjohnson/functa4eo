@@ -1,8 +1,0 @@
-dataset:
-  temperature:
-    path: /home/juanjohn/data/ocean/reanalysis/MED_GLORYS_SSH_DAILY.nc
-    name: "temperature"
-    variable_name: "tos"
-    variable: "blah"
-  
-   
