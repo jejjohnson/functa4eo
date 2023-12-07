@@ -1,19 +1,19 @@
 # Type dvc-help in this file and hit enter to get more information on how the extension can help to setup pipelines
 stages:
   train:
-    cmd: python functa4eo/_src/config.py
+    cmd: python functa4eo/_src/train.py
     deps:
-    - functa4eo/_src/config.py
+    - functa4eo/_src/train.py
 
 plots:
 - step vs loss:
     template: simple
-    x: step
+    x:
+      dvclive/plots/metrics/loss.tsv: x
     y:
       dvclive/plots/metrics/loss.tsv: loss
+
 - dvclive/plots/metrics:
     x: step
-    y:
-      dvclive/plots/metrics/loss.tsv: loss
 metrics:
 - dvclive/metrics.json
