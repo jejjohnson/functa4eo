@@ -222,12 +222,9 @@ if __name__ == "__main__":
     from hydra_zen import zen
 
     store.add_to_hydra_store()
-    logger.info("Hiiii")
 
     # Generate the CLI For train_fn
     z = zen(train_fn)
-
-    logger.info("Hiiii222")
 
     z.hydra_main(
         config_name="train_fn",
